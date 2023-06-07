@@ -6,12 +6,15 @@
 import { computed, onUpdated, ref, watch } from "vue";
 import * as tf from "@tensorflow/tfjs";
 import { yoloColor, drawCanvas, drawModel } from "@/service/canvas";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
+  // type inference enabled
   props: {
-    myImage: Blob,
+    myImage: {
+      type: Blob,
+    },
   },
-
   setup(props) {
     const canvas = ref<HTMLCanvasElement | null>(null);
     let model: tf.GraphModel;
@@ -34,7 +37,7 @@ export default {
       canvas,
     };
   },
-};
+});
 </script>
 
 <style scoped></style>

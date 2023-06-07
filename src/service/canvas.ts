@@ -155,8 +155,9 @@ export const drawModel = (
 
     model
       .executeAsync(modelInput)
-      .then((res: any) => {
+      .then((res) => {
         // Font options.
+        if (!Array.isArray(res)) return;
         const font = "16px sans-serif";
         context.font = font;
         context.textBaseline = "top";
