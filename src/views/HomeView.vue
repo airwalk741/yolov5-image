@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="mx-10 grid grid-cols-2 gap-4">
+    <section class="">
+      <FileUploadForm @setImage="setImage" />
+    </section>
+    <section class="">
+      <AlterImage :myImage="myImage" />
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { defineComponent, ref } from "vue";
+import * as tf from "@tensorflow/tfjs";
+import FileUploadForm from "./components/FileUploadForm.vue";
+import AlterImage from "./components/AlterImage.vue";
 
-@Options({
-  components: {
-    HelloWorld,
+export default defineComponent({
+  components: { FileUploadForm, AlterImage },
+  setup() {
+    let myImage = ref<Blob>();
+
+    function setImage(file: Blob) {
+      myImage.value = file;
+    }
+
+    return {
+      setImage,
+      myImage,
+    };
   },
-})
-export default class HomeView extends Vue {}
+});
 </script>
+
+<style scoped></style>
